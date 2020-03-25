@@ -42,7 +42,7 @@ Example Welcome Email in Chinese: welcome.en.html
 #### 2. Setting up Mailon
 ```js
 const mailon = require('./mailmap')('path-where-you-store-your-templates')
-mailon.langTo('zh)
+mailon.langTo('zh')
 ```
 
 #### 3. Getting and rendering emails with Mailon

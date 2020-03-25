@@ -1,0 +1,25 @@
+{
+  "name": "mailon",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chen7david/mailon.git"
+  },
+  "keywords": [
+    "email-template-engine"
+  ],
+  "author": "David M.Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chen7david/mailon/issues"
+  },
+  "homepage": "https://github.com/chen7david/mailon#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

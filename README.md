@@ -4,7 +4,7 @@ Mailon is a templating engine for tempate emails.
 
 ### Getting Started
 
-#### 1. create templates
+#### 1. Create Templates
 Create a template folder anywhere in your project folder. All template files should end in <code>.html</code>. We should stick to the following naming convention <code>filename.langcode.html</code>. The langcode will be used to retrieve the correct translation of the email if your app supports it. 
 
 Example Filenames
@@ -48,4 +48,17 @@ mailon.langTo('zh)
 #### 3. Getting and rendering emails with Mailon
 ```js
 mailon.get('welcome')
+```
+
+output
+
+```html
+<h1>账户主次成功</h1>
+<p>下边是您账户信息:</p>
+<ul>
+    <li>用户名: ${user.username}</li>
+    <li>密码: ${user.password}</li>
+</ul>
+
+更多信息， 请按<a href="${link}">here</a>
 ```

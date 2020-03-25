@@ -5,7 +5,7 @@ Mailon is a templating engine for tempate emails.
 ### Getting Started
 
 #### 1. create templates
-Create a template folder anywhere in your project folder. All template files should end in <code>.html</code>. We should stick to the following naming convention <code>filename.langcode.html. The langcode will be used to retrieve the correct translation of the email if your app supports it. 
+Create a template folder anywhere in your project folder. All template files should end in <code>.html</code>. We should stick to the following naming convention <code>filename.langcode.html</code>. The langcode will be used to retrieve the correct translation of the email if your app supports it. 
 
 Example Filenames
 ```js

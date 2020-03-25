@@ -43,6 +43,11 @@ class Mailon {
 
 }
 
-exports = module.exports = (directory) => new Mailon(directory)
+exports = module.exports = (directory) => () => (req, res, next) => {
+    req.mailon = (directory) => new Mailon(directory)
+    req.mailon.lang = req.lang ? req.lang : 'en'
+    next()
+}
 
 exports.Mailon = Mailon
+exports.mailon = (directory) => new Mailon(directory)

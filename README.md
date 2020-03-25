@@ -41,13 +41,14 @@ Example Welcome Email in Chinese: welcome.en.html
 
 #### 2. Setting up Mailon
 ```js
-const mailon = require('./mailmap')('path-where-you-store-your-templates')
-mailon.langTo('zh')
+const { mailon } = require('./mailmap')
+const instance = mailon('path-where-you-store-your-templates')
+instance.langTo('zh')
 ```
 
 #### 3. Getting and rendering emails with Mailon
 ```js
-mailon.get('welcome', data)
+instance.get('welcome', data)
 ```
 
 output
@@ -61,4 +62,25 @@ output
 </ul>
 
 更多信息， 请按<a href="some-link">here</a>
+```
+
+#### 4. Express Middleware Example
+Note: if you wish to set the langue you will have set a lang property on your request object before instantiating notis.
+
+```js
+const mailon = require('./mailmap')('path-where-you-store-your-templates')
+
+// mount to express app
+app.use(mailon())
+
+
+// accessing in express route
+
+const SomeExpressRoute = async (req, res, next) => {
+    
+    const email = req.mailon.get('some-email-template')
+
+    next()
+
+}
 ```

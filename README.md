@@ -78,7 +78,7 @@ app.use(mailon())
 
 const SomeExpressRoute = async (req, res, next) => {
     
-    const email = req.mailon.get('some-email-template')
+    const email = req.mailon.get('some-email-template', data)
 
     next()
 

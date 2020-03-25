@@ -6,7 +6,7 @@ class Mailon {
     
     constructor(directory){
         this.lang = 'en'
-        this.path = path.resolve(__dirname, directory)
+        this.path = path.resolve(directory)
         this.filePath = null
         this.file = null
     }

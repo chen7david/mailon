@@ -47,7 +47,7 @@ mailon.langTo('zh)
 
 #### 3. Getting and rendering emails with Mailon
 ```js
-mailon.get('welcome')
+mailon.get('welcome', data)
 ```
 
 output
@@ -56,9 +56,9 @@ output
 <h1>账户主次成功</h1>
 <p>下边是您账户信息:</p>
 <ul>
-    <li>用户名: ${user.username}</li>
-    <li>密码: ${user.password}</li>
+    <li>用户名: some-username</li>
+    <li>密码: some-password</li>
 </ul>
 
-更多信息， 请按<a href="${link}">here</a>
+更多信息， 请按<a href="some-link">here</a>
 ```

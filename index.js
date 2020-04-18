@@ -4,9 +4,9 @@ const { template } = require('lodash')
 
 class Mailon {
     
-    constructor(directory){
+    constructor(...directory){
         this.lang = 'en'
-        this.path = path.resolve(directory)
+        this.path = path.join(...directory)
         this.filePath = null
         this.file = null
     }
@@ -43,11 +43,7 @@ class Mailon {
 
 }
 
-exports = module.exports = (directory) => () => (req, res, next) => {
-    req.mailon = (directory) => new Mailon(directory)
-    req.mailon.lang = req.lang ? req.lang : 'en'
-    next()
-}
+exports = module.exports = (...directory) =>  new Mailon(...directory)
 
 exports.Mailon = Mailon
-exports.mailon = (directory) => new Mailon(directory)
+exports.mailon = (...directory) => new Mailon(...directory)

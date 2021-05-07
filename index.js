@@ -1,49 +1,64 @@
-const { readFileSync, existsSync } = require('fs')
-const path = require('path')
-const { template } = require('lodash')
+const nodemailer = require('nodemailer')
+const p = require('path')
+const _ = require('lodash')
+const fs = require('fs')
 
-class Mailon {
-    
-    constructor(...directory){
-        this.lang = 'en'
-        this.path = path.join(...directory)
-        this.filePath = null
-        this.file = null
+class Mailer {
+
+    constructor(options = {}){
+        this.transporter = nodemailer.createTransport(options)
     }
 
-    langTo(lang){
-        this.lang = lang
+    from(email){
+        this.from = email
         return this
     }
 
-    setFilePath(name){
-        const fileName = name + '.' + this.lang + '.html'
-        const filePath = path.resolve(this.path, fileName)
-        if(!existsSync(filePath)) throw(`filePath ${filePath} does not exist!`)
-        this.filePath = filePath
+    to(email){
+        this.to = email
         return this
     }
 
-    setFile(name){
-        this.setFilePath(name)
-        this.file = readFileSync(this.filePath, 'utf8')
+    toAll(emails = []){
+        this.to = emails
         return this
     }
 
-    render(data){
-        this.file = template(this.file)(data)
+    subject(text){
+        this.subject = text
         return this
     }
 
-    get(name, data){
-        this.setFile(name)
-        if(data) this.render(data)
-        return this.file
+    body(html){
+        this.body = html
+        return this
     }
 
+    async send(){
+        await this.transporter.sendMail({
+            from: this.from,
+            to: this.to,
+            subject: this.subject,
+            html: this.body,
+        })
+    }
 }
 
-exports = module.exports = (...directory) =>  new Mailon(...directory)
+class Template {
+    constructor(path){
+        this.path = path
+    }
 
-exports.Mailon = Mailon
-exports.mailon = (...directory) => new Mailon(...directory)
+    render(name, data = {}){
+        const path = p.resolve(this.path, name)
+        z({path})
+        const file = fs.readFileSync(path,'utf8')
+        return _.template(file)(data)
+    }
+}
+
+module.exports = (options = {}, path) => async (ctx, next) => {
+    ctx.template = new Template(path)
+    ctx.mailer = new Mailer(options)
+    await next()
+}

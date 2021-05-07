@@ -51,7 +51,6 @@ class Template {
 
     render(name, data = {}){
         const path = p.resolve(this.path, name)
-        z({path})
         const file = fs.readFileSync(path,'utf8')
         return _.template(file)(data)
     }

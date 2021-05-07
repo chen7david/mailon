@@ -1,5 +1,54 @@
 # Mailon
 
+#### V2
+usage in koa js
+1. <code>$ npm i lodash nodemailer</code>
+
+config.yaml
+```yaml
+server:
+  protocol: http
+  hostname: localhost
+  port: 5000
+
+email:
+  service: gmail
+  auth:
+    user: 'mailer@email.com'
+    pass: yourpassword
+```
+
+```js
+const Koa = require('koa')
+const app = new Koa()
+const mailer = require('mailon')
+const { server, email } = require('config')
+
+app.use(mailer(email, __dirname + '/public'))
+
+/* SERVER */
+app.listen(server.port, () => {
+    const http = require('url').format(server)
+    console.log(`server running at: ${http}`)
+})
+```
+
+#### controllers 
+```js
+async requestPasswordRecovery(ctx){
+    const code = await ctx.state.$user.newPasswordRecoveryCode()
+    if(!code) ctx.cargo.original(ctx.request.body).state('validation')
+    .loadmsg('code', 'invalid code').error(422)
+    await ctx.mailer
+        .to(ctx.state.$user.email)
+        .subject('Password Revocery Code')
+        .body(ctx.template.render('email-verification.html', code))
+        .send()
+    ctx.body = ctx.cargo.msg(`password recovery email sent to ${ctx.state.$user.email}`)
+}
+```
+
+#### V1
 Mailon is a templating engine for tempate emails. 
 
 ### Getting Started
